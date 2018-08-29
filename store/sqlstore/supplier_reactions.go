@@ -17,8 +17,8 @@ import (
 func initSqlSupplierReactions(sqlStore SqlStore) {
 	for _, db := range sqlStore.GetAllConns() {
 		table := db.AddTableWithName(model.Reaction{}, "Reactions").SetKeys(false, "UserId", "PostId", "EmojiName")
-		table.ColMap("UserId").SetMaxSize(26)
-		table.ColMap("PostId").SetMaxSize(26)
+		table.ColMap("UserId")
+		table.ColMap("PostId")
 		table.ColMap("EmojiName").SetMaxSize(64)
 	}
 }

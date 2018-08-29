@@ -30,7 +30,7 @@ const (
 )
 
 type Role struct {
-	Id            string   `json:"id"`
+	Id            int      `json:"id"`
 	Name          string   `json:"name"`
 	DisplayName   string   `json:"display_name"`
 	Description   string   `json:"description"`

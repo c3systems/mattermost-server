@@ -10,10 +10,10 @@ import (
 
 type UserSearch struct {
 	Term           string `json:"term"`
-	TeamId         string `json:"team_id"`
-	NotInTeamId    string `json:"not_in_team_id"`
-	InChannelId    string `json:"in_channel_id"`
-	NotInChannelId string `json:"not_in_channel_id"`
+	TeamId         int    `json:"team_id"`
+	NotInTeamId    int    `json:"not_in_team_id"`
+	InChannelId    int    `json:"in_channel_id"`
+	NotInChannelId int    `json:"not_in_channel_id"`
 	AllowInactive  bool   `json:"allow_inactive"`
 	WithoutTeam    bool   `json:"without_team"`
 }

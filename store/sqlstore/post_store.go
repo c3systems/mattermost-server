@@ -56,13 +56,13 @@ func NewSqlPostStore(sqlStore SqlStore, metrics einterfaces.MetricsInterface) st
 	}
 
 	for _, db := range sqlStore.GetAllConns() {
-		table := db.AddTableWithName(model.Post{}, "Posts").SetKeys(false, "Id")
-		table.ColMap("Id").SetMaxSize(26)
-		table.ColMap("UserId").SetMaxSize(26)
-		table.ColMap("ChannelId").SetMaxSize(26)
-		table.ColMap("RootId").SetMaxSize(26)
-		table.ColMap("ParentId").SetMaxSize(26)
-		table.ColMap("OriginalId").SetMaxSize(26)
+		table := db.AddTableWithName(model.Post{}, "Posts").SetKeys(true, "Id")
+		table.ColMap("Id")
+		table.ColMap("UserId")
+		table.ColMap("ChannelId")
+		table.ColMap("RootId")
+		table.ColMap("ParentId")
+		table.ColMap("OriginalId")
 		table.ColMap("Message").SetMaxSize(model.POST_MESSAGE_MAX_BYTES_V2)
 		table.ColMap("Type").SetMaxSize(26)
 		table.ColMap("Hashtags").SetMaxSize(1000)
@@ -142,7 +142,6 @@ func (s *SqlPostStore) Update(newPost *model.Post, oldPost *model.Post) store.St
 		oldPost.DeleteAt = newPost.UpdateAt
 		oldPost.UpdateAt = newPost.UpdateAt
 		oldPost.OriginalId = oldPost.Id
-		oldPost.Id = model.NewId()
 		oldPost.PreCommit()
 
 		var maxPostSize int

@@ -20,16 +20,16 @@ const (
 )
 
 type ChannelUnread struct {
-	TeamId       string    `json:"team_id"`
-	ChannelId    string    `json:"channel_id"`
+	TeamId       int       `json:"team_id"`
+	ChannelId    int       `json:"channel_id"`
 	MsgCount     int64     `json:"msg_count"`
 	MentionCount int64     `json:"mention_count"`
 	NotifyProps  StringMap `json:"-"`
 }
 
 type ChannelMember struct {
-	ChannelId     string    `json:"channel_id"`
-	UserId        string    `json:"user_id"`
+	ChannelId     int       `json:"channel_id"`
+	UserId        int       `json:"user_id"`
 	Roles         string    `json:"roles"`
 	LastViewedAt  int64     `json:"last_viewed_at"`
 	MsgCount      int64     `json:"msg_count"`

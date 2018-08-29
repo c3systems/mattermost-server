@@ -136,8 +136,8 @@ func NewSqlTeamStore(sqlStore SqlStore) store.TeamStore {
 	s := &SqlTeamStore{sqlStore}
 
 	for _, db := range sqlStore.GetAllConns() {
-		table := db.AddTableWithName(model.Team{}, "Teams").SetKeys(false, "Id")
-		table.ColMap("Id").SetMaxSize(26)
+		table := db.AddTableWithName(model.Team{}, "Teams").SetKeys(true, "Id")
+		table.ColMap("Id")
 		table.ColMap("DisplayName").SetMaxSize(64)
 		table.ColMap("Name").SetMaxSize(64).SetUnique(true)
 		table.ColMap("Description").SetMaxSize(255)
@@ -147,8 +147,8 @@ func NewSqlTeamStore(sqlStore SqlStore) store.TeamStore {
 		table.ColMap("InviteId").SetMaxSize(32)
 
 		tablem := db.AddTableWithName(teamMember{}, "TeamMembers").SetKeys(false, "TeamId", "UserId")
-		tablem.ColMap("TeamId").SetMaxSize(26)
-		tablem.ColMap("UserId").SetMaxSize(26)
+		tablem.ColMap("TeamId")
+		tablem.ColMap("UserId")
 		tablem.ColMap("Roles").SetMaxSize(64)
 	}
 

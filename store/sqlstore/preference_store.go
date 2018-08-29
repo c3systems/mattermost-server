@@ -22,7 +22,7 @@ func NewSqlPreferenceStore(sqlStore SqlStore) store.PreferenceStore {
 
 	for _, db := range sqlStore.GetAllConns() {
 		table := db.AddTableWithName(model.Preference{}, "Preferences").SetKeys(false, "UserId", "Category", "Name")
-		table.ColMap("UserId").SetMaxSize(26)
+		table.ColMap("UserId")
 		table.ColMap("Category").SetMaxSize(32)
 		table.ColMap("Name").SetMaxSize(32)
 		table.ColMap("Value").SetMaxSize(2000)

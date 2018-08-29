@@ -10,7 +10,7 @@ const (
 )
 
 type Permission struct {
-	Id          string `json:"id"`
+	Id          int    `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Scope       string `json:"scope"`

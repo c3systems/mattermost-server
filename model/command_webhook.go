@@ -8,13 +8,13 @@ import (
 )
 
 type CommandWebhook struct {
-	Id        string
+	Id        int
 	CreateAt  int64
-	CommandId string
-	UserId    string
-	ChannelId string
-	RootId    string
-	ParentId  string
+	CommandId int
+	UserId    int
+	ChannelId int
+	RootId    int
+	ParentId  int
 	UseCount  int
 }
 
@@ -23,10 +23,6 @@ const (
 )
 
 func (o *CommandWebhook) PreSave() {
-	if o.Id == "" {
-		o.Id = NewId()
-	}
-
 	if o.CreateAt == 0 {
 		o.CreateAt = GetMillis()
 	}

@@ -16,7 +16,7 @@ const (
 )
 
 type ClusterDiscovery struct {
-	Id          string `json:"id"`
+	Id          int    `json:"id"`
 	Type        string `json:"type"`
 	ClusterName string `json:"cluster_name"`
 	Hostname    string `json:"hostname"`
@@ -27,10 +27,6 @@ type ClusterDiscovery struct {
 }
 
 func (o *ClusterDiscovery) PreSave() {
-	if o.Id == "" {
-		o.Id = NewId()
-	}
-
 	if o.CreateAt == 0 {
 		o.CreateAt = GetMillis()
 		o.LastPingAt = o.CreateAt

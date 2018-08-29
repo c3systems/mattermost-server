@@ -333,9 +333,6 @@ func (a *App) SendEphemeralPost(userId string, post *model.Post) *model.Post {
 	post.Type = model.POST_EPHEMERAL
 
 	// fill in fields which haven't been specified which have sensible defaults
-	if post.Id == "" {
-		post.Id = model.NewId()
-	}
 	if post.CreateAt == 0 {
 		post.CreateAt = model.GetMillis()
 	}

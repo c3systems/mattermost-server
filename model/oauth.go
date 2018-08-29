@@ -21,8 +21,8 @@ const (
 )
 
 type OAuthApp struct {
-	Id           string      `json:"id"`
-	CreatorId    string      `json:"creator_id"`
+	Id           int         `json:"id"`
+	CreatorId    int         `json:"creator_id"`
 	CreateAt     int64       `json:"create_at"`
 	UpdateAt     int64       `json:"update_at"`
 	ClientSecret string      `json:"client_secret"`
@@ -92,10 +92,6 @@ func (a *OAuthApp) IsValid() *AppError {
 // PreSave will set the Id and ClientSecret if missing.  It will also fill
 // in the CreateAt, UpdateAt times. It should be run before saving the app to the db.
 func (a *OAuthApp) PreSave() {
-	if a.Id == "" {
-		a.Id = NewId()
-	}
-
 	if a.ClientSecret == "" {
 		a.ClientSecret = NewId()
 	}

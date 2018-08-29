@@ -18,13 +18,13 @@ const (
 )
 
 type Command struct {
-	Id               string `json:"id"`
+	Id               int    `json:"id"`
 	Token            string `json:"token"`
 	CreateAt         int64  `json:"create_at"`
 	UpdateAt         int64  `json:"update_at"`
 	DeleteAt         int64  `json:"delete_at"`
-	CreatorId        string `json:"creator_id"`
-	TeamId           string `json:"team_id"`
+	CreatorId        int    `json:"creator_id"`
+	TeamId           int    `json:"team_id"`
 	Trigger          string `json:"trigger"`
 	Method           string `json:"method"`
 	Username         string `json:"username"`

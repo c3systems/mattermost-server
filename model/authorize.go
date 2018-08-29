@@ -5,6 +5,7 @@ package model
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 )
@@ -17,8 +18,8 @@ const (
 )
 
 type AuthData struct {
-	ClientId    string `json:"client_id"`
-	UserId      string `json:"user_id"`
+	ClientId    int    `json:"client_id"`
+	UserId      int    `json:"user_id"`
 	Code        string `json:"code"`
 	ExpiresIn   int32  `json:"expires_in"`
 	CreateAt    int64  `json:"create_at"`
@@ -39,16 +40,8 @@ type AuthorizeRequest struct {
 // correctly.
 func (ad *AuthData) IsValid() *AppError {
 
-	if len(ad.ClientId) != 26 {
-		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.client_id.app_error", nil, "", http.StatusBadRequest)
-	}
-
-	if len(ad.UserId) != 26 {
-		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.user_id.app_error", nil, "", http.StatusBadRequest)
-	}
-
 	if len(ad.Code) == 0 || len(ad.Code) > 128 {
-		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.auth_code.app_error", nil, "client_id="+ad.ClientId, http.StatusBadRequest)
+		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.auth_code.app_error", nil, fmt.Sprintf("client_id=%d", ad.ClientId), http.StatusBadRequest)
 	}
 
 	if ad.ExpiresIn == 0 {
@@ -56,19 +49,19 @@ func (ad *AuthData) IsValid() *AppError {
 	}
 
 	if ad.CreateAt <= 0 {
-		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.create_at.app_error", nil, "client_id="+ad.ClientId, http.StatusBadRequest)
+		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.create_at.app_error", nil, fmt.Sprintf("client_id=%d", ad.ClientId), http.StatusBadRequest)
 	}
 
 	if len(ad.RedirectUri) > 256 || !IsValidHttpUrl(ad.RedirectUri) {
-		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.redirect_uri.app_error", nil, "client_id="+ad.ClientId, http.StatusBadRequest)
+		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.redirect_uri.app_error", nil, fmt.Sprintf("client_id=%d", ad.ClientId), http.StatusBadRequest)
 	}
 
 	if len(ad.State) > 1024 {
-		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.state.app_error", nil, "client_id="+ad.ClientId, http.StatusBadRequest)
+		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.state.app_error", nil, fmt.Sprintf("client_id=%d", ad.ClientId), http.StatusBadRequest)
 	}
 
 	if len(ad.Scope) > 128 {
-		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.scope.app_error", nil, "client_id="+ad.ClientId, http.StatusBadRequest)
+		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.scope.app_error", nil, fmt.Sprintf("client_id=%d", ad.ClientId), http.StatusBadRequest)
 	}
 
 	return nil
@@ -87,15 +80,15 @@ func (ar *AuthorizeRequest) IsValid() *AppError {
 	}
 
 	if len(ar.RedirectUri) == 0 || len(ar.RedirectUri) > 256 || !IsValidHttpUrl(ar.RedirectUri) {
-		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.redirect_uri.app_error", nil, "client_id="+ar.ClientId, http.StatusBadRequest)
+		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.redirect_uri.app_error", nil, fmt.Sprintf("client_id=%d", ar.ClientId), http.StatusBadRequest)
 	}
 
 	if len(ar.State) > 128 {
-		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.state.app_error", nil, "client_id="+ar.ClientId, http.StatusBadRequest)
+		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.state.app_error", nil, fmt.Sprintf("client_id=%d", ar.ClientId), http.StatusBadRequest)
 	}
 
 	if len(ar.Scope) > 128 {
-		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.scope.app_error", nil, "client_id="+ar.ClientId, http.StatusBadRequest)
+		return NewAppError("AuthData.IsValid", "model.authorize.is_valid.scope.app_error", nil, fmt.Sprintf("client_id=%d", ar.ClientId), http.StatusBadRequest)
 	}
 
 	return nil

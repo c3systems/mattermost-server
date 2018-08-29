@@ -11,8 +11,8 @@ import (
 )
 
 type Reaction struct {
-	UserId    string `json:"user_id"`
-	PostId    string `json:"post_id"`
+	UserId    int    `json:"user_id"`
+	PostId    int    `json:"post_id"`
 	EmojiName string `json:"emoji_name"`
 	CreateAt  int64  `json:"create_at"`
 }

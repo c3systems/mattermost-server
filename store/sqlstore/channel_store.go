@@ -39,8 +39,8 @@ type SqlChannelStore struct {
 }
 
 type channelMember struct {
-	ChannelId    string
-	UserId       string
+	ChannelId    int
+	UserId       int
 	Roles        string
 	LastViewedAt int64
 	MsgCount     int64
@@ -67,8 +67,8 @@ func NewChannelMemberFromModel(cm *model.ChannelMember) *channelMember {
 }
 
 type channelMemberWithSchemeRoles struct {
-	ChannelId                     string
-	UserId                        string
+	ChannelId                     int
+	UserId                        int
 	Roles                         string
 	LastViewedAt                  int64
 	MsgCount                      int64
@@ -261,9 +261,9 @@ func NewSqlChannelStore(sqlStore SqlStore, metrics einterfaces.MetricsInterface)
 	}
 
 	for _, db := range sqlStore.GetAllConns() {
-		table := db.AddTableWithName(model.Channel{}, "Channels").SetKeys(false, "Id")
-		table.ColMap("Id").SetMaxSize(26)
-		table.ColMap("TeamId").SetMaxSize(26)
+		table := db.AddTableWithName(model.Channel{}, "Channels").SetKeys(true, "Id")
+		table.ColMap("Id")
+		table.ColMap("TeamId")
 		table.ColMap("Type").SetMaxSize(1)
 		table.ColMap("DisplayName").SetMaxSize(64)
 		table.ColMap("Name").SetMaxSize(64)
@@ -271,11 +271,11 @@ func NewSqlChannelStore(sqlStore SqlStore, metrics einterfaces.MetricsInterface)
 		table.ColMap("Header").SetMaxSize(1024)
 		table.ColMap("Purpose").SetMaxSize(250)
 		table.ColMap("CreatorId").SetMaxSize(26)
-		table.ColMap("SchemeId").SetMaxSize(26)
+		table.ColMap("SchemeId")
 
 		tablem := db.AddTableWithName(channelMember{}, "ChannelMembers").SetKeys(false, "ChannelId", "UserId")
-		tablem.ColMap("ChannelId").SetMaxSize(26)
-		tablem.ColMap("UserId").SetMaxSize(26)
+		tablem.ColMap("ChannelId")
+		tablem.ColMap("UserId")
 		tablem.ColMap("Roles").SetMaxSize(64)
 		tablem.ColMap("NotifyProps").SetMaxSize(2000)
 	}

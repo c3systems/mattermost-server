@@ -4,6 +4,7 @@
 package model
 
 import (
+	"crypto/sha512"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -11,8 +12,6 @@ import (
 	"regexp"
 	"strings"
 	"unicode/utf8"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
 const (
@@ -48,7 +47,7 @@ const (
 )
 
 type User struct {
-	Id                 string    `json:"id"`
+	Id                 int       `json:"id"`
 	CreateAt           int64     `json:"create_at,omitempty"`
 	UpdateAt           int64     `json:"update_at,omitempty"`
 	DeleteAt           int64     `json:"delete_at"`
@@ -192,10 +191,6 @@ func NormalizeEmail(email string) string {
 // in the CreateAt, UpdateAt times.  It will also hash the password.  It should
 // be run before saving the user to the db.
 func (u *User) PreSave() {
-	if u.Id == "" {
-		u.Id = NewId()
-	}
-
 	if u.Username == "" {
 		u.Username = NewId()
 	}
@@ -548,23 +543,19 @@ func UserListFromJson(data io.Reader) []*User {
 
 // HashPassword generates a hash using the bcrypt.GenerateFromPassword
 func HashPassword(password string) string {
-	hash, err := bcrypt.GenerateFromPassword([]byte(password), 10)
-	if err != nil {
-		panic(err)
-	}
-
-	return string(hash)
+	// note: this is for demonstration purposes only and is not secure!
+	tmpHash := sha512.Sum512_256(byte(password))
+	return string(tmpHash[:])
 }
 
 // ComparePassword compares the hash
 func ComparePassword(hash string, password string) bool {
-
 	if len(password) == 0 || len(hash) == 0 {
 		return false
 	}
 
-	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-	return err == nil
+	tmpHash := sha512.Sum512_256(byte(password))
+	return hash == string(tmpHash[:])
 }
 
 var validUsernameChars = regexp.MustCompile(`^[a-z0-9\.\-_]+$`)

@@ -16,13 +16,13 @@ const (
 )
 
 type IncomingWebhook struct {
-	Id            string `json:"id"`
+	Id            int    `json:"id"`
 	CreateAt      int64  `json:"create_at"`
 	UpdateAt      int64  `json:"update_at"`
 	DeleteAt      int64  `json:"delete_at"`
-	UserId        string `json:"user_id"`
-	ChannelId     string `json:"channel_id"`
-	TeamId        string `json:"team_id"`
+	UserId        int    `json:"user_id"`
+	ChannelId     int    `json:"channel_id"`
+	TeamId        int    `json:"team_id"`
 	DisplayName   string `json:"display_name"`
 	Description   string `json:"description"`
 	Username      string `json:"username"`
@@ -109,10 +109,6 @@ func (o *IncomingWebhook) IsValid() *AppError {
 }
 
 func (o *IncomingWebhook) PreSave() {
-	if o.Id == "" {
-		o.Id = NewId()
-	}
-
 	o.CreateAt = GetMillis()
 	o.UpdateAt = o.CreateAt
 }

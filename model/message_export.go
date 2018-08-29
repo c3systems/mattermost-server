@@ -4,24 +4,24 @@
 package model
 
 type MessageExport struct {
-	TeamId          *string
+	TeamId          *int
 	TeamName        *string
 	TeamDisplayName *string
 
-	ChannelId          *string
+	ChannelId          *int
 	ChannelName        *string
 	ChannelDisplayName *string
 	ChannelType        *string
 
-	UserId    *string
+	UserId    *int
 	UserEmail *string
 	Username  *string
 
-	PostId         *string
+	PostId         *int
 	PostCreateAt   *int64
 	PostMessage    *string
 	PostType       *string
-	PostRootId     *string
-	PostOriginalId *string
+	PostRootId     *int
+	PostOriginalId *int
 	PostFileIds    StringArray
 }

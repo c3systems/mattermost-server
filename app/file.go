@@ -612,8 +612,8 @@ func (a *App) GetFileInfo(fileId string) (*model.FileInfo, *model.AppError) {
 	}
 }
 
-func (a *App) CopyFileInfos(userId string, fileIds []string) ([]string, *model.AppError) {
-	newFileIds := []string{}
+func (a *App) CopyFileInfos(userId string, fileIds []string) ([]int, *model.AppError) {
+	newFileIds := []int{}
 
 	now := model.GetMillis()
 
@@ -626,7 +626,6 @@ func (a *App) CopyFileInfos(userId string, fileIds []string) ([]string, *model.A
 			fileInfo = result.Data.(*model.FileInfo)
 		}
 
-		fileInfo.Id = model.NewId()
 		fileInfo.CreatorId = userId
 		fileInfo.CreateAt = now
 		fileInfo.UpdateAt = now

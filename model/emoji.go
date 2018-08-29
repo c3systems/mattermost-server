@@ -15,11 +15,11 @@ const (
 )
 
 type Emoji struct {
-	Id        string `json:"id"`
+	Id        int    `json:"id"`
 	CreateAt  int64  `json:"create_at"`
 	UpdateAt  int64  `json:"update_at"`
 	DeleteAt  int64  `json:"delete_at"`
-	CreatorId string `json:"creator_id"`
+	CreatorId int    `json:"creator_id"`
 	Name      string `json:"name"`
 }
 
@@ -57,10 +57,6 @@ func IsValidEmojiName(name string) *AppError {
 }
 
 func (emoji *Emoji) PreSave() {
-	if emoji.Id == "" {
-		emoji.Id = NewId()
-	}
-
 	emoji.CreateAt = GetMillis()
 	emoji.UpdateAt = emoji.CreateAt
 }

@@ -144,6 +144,12 @@ func NewSqlSupplier(settings model.SqlSettings, metrics einterfaces.MetricsInter
 	initSqlSupplierRoles(supplier)
 	initSqlSupplierSchemes(supplier)
 
+	//_, err := supplier.GetMaster().Exec(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`)
+	//if err != nil {
+	//mlog.Critical(fmt.Sprintf("Error creating database tables: %v", err))
+	//time.Sleep(time.Second)
+	//os.Exit(EXIT_CREATE_TABLE)
+	//}
 	err := supplier.GetMaster().CreateTablesIfNotExists()
 	if err != nil {
 		mlog.Critical(fmt.Sprintf("Error creating database tables: %v", err))

@@ -20,8 +20,8 @@ func NewSqlJobStore(sqlStore SqlStore) store.JobStore {
 	s := &SqlJobStore{sqlStore}
 
 	for _, db := range sqlStore.GetAllConns() {
-		table := db.AddTableWithName(model.Job{}, "Jobs").SetKeys(false, "Id")
-		table.ColMap("Id").SetMaxSize(26)
+		table := db.AddTableWithName(model.Job{}, "Jobs").SetKeys(true, "Id")
+		table.ColMap("Id")
 		table.ColMap("Type").SetMaxSize(32)
 		table.ColMap("Status").SetMaxSize(32)
 		table.ColMap("Data").SetMaxSize(1024)

@@ -5,7 +5,6 @@ package model
 
 import (
 	"crypto/sha512"
-	"encoding/base32"
 	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
@@ -45,7 +44,7 @@ func AppErrorInit(t goi18n.TranslateFunc) {
 }
 
 type AppError struct {
-	Id            string `json:"id"`
+	Id            int    `json:"id"`
 	Message       string `json:"message"`               // Message to be display to the end user without debugging information
 	DetailedError string `json:"detailed_error"`        // Internal error string to help the developer
 	RequestId     string `json:"request_id,omitempty"`  // The RequestId that's also set in the header
@@ -118,7 +117,7 @@ func NewAppError(where string, id string, params map[string]interface{}, details
 	return ap
 }
 
-var encoding = base32.NewEncoding("ybndrfg8ejkmcpqxot1uwisza345h769")
+//var encoding = base32.NewEncoding("ybndrfg8ejkmcpqxot1uwisza345h769")
 var SeqUint64 uint64 = 0
 
 // NewId is a globally unique identifier.  It is a [A-Z0-9] string 26
@@ -141,9 +140,7 @@ func NewRandomString(length int) string {
 
 // GetMillis is a convience method to get milliseconds since epoch.
 func GetMillis() int64 {
-	SeqUint64++
-	log.Printf("SeqUint64: %d", SeqUint64)
-	return SeqUint64
+	return int64(SeqUint64)
 }
 
 func CopyStringMap(originalMap map[string]string) map[string]string {

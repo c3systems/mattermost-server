@@ -9,7 +9,7 @@ import (
 )
 
 type SecurityBulletin struct {
-	Id               string `json:"id"`
+	Id               int    `json:"id"`
 	AppliesToVersion string `json:"applies_to_version"`
 }
 

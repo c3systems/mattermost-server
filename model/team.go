@@ -26,7 +26,7 @@ const (
 )
 
 type Team struct {
-	Id                 string  `json:"id"`
+	Id                 int     `json:"id"`
 	CreateAt           int64   `json:"create_at"`
 	UpdateAt           int64   `json:"update_at"`
 	DeleteAt           int64   `json:"delete_at"`
@@ -37,7 +37,7 @@ type Team struct {
 	Type               string  `json:"type"`
 	CompanyName        string  `json:"company_name"`
 	AllowedDomains     string  `json:"allowed_domains"`
-	InviteId           string  `json:"invite_id"`
+	InviteId           int     `json:"invite_id"`
 	AllowOpenInvite    bool    `json:"allow_open_invite"`
 	LastTeamIconUpdate int64   `json:"last_team_icon_update,omitempty"`
 	SchemeId           *string `json:"scheme_id"`
@@ -47,7 +47,7 @@ type TeamPatch struct {
 	DisplayName     *string `json:"display_name"`
 	Description     *string `json:"description"`
 	CompanyName     *string `json:"company_name"`
-	InviteId        *string `json:"invite_id"`
+	InviteId        *int    `json:"invite_id"`
 	AllowOpenInvite *bool   `json:"allow_open_invite"`
 }
 
@@ -169,16 +169,8 @@ func (o *Team) IsValid() *AppError {
 }
 
 func (o *Team) PreSave() {
-	if o.Id == "" {
-		o.Id = NewId()
-	}
-
 	o.CreateAt = GetMillis()
 	o.UpdateAt = o.CreateAt
-
-	if len(o.InviteId) == 0 {
-		o.InviteId = NewId()
-	}
 }
 
 func (o *Team) PreUpdate() {

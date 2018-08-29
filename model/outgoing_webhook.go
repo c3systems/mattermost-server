@@ -14,14 +14,14 @@ import (
 )
 
 type OutgoingWebhook struct {
-	Id           string      `json:"id"`
+	Id           int         `json:"id"`
 	Token        string      `json:"token"`
 	CreateAt     int64       `json:"create_at"`
 	UpdateAt     int64       `json:"update_at"`
 	DeleteAt     int64       `json:"delete_at"`
-	CreatorId    string      `json:"creator_id"`
-	ChannelId    string      `json:"channel_id"`
-	TeamId       string      `json:"team_id"`
+	CreatorId    int         `json:"creator_id"`
+	ChannelId    int         `json:"channel_id"`
+	TeamId       int         `json:"team_id"`
 	TriggerWords StringArray `json:"trigger_words"`
 	TriggerWhen  int         `json:"trigger_when"`
 	CallbackURLs StringArray `json:"callback_urls"`
@@ -34,14 +34,14 @@ type OutgoingWebhook struct {
 
 type OutgoingWebhookPayload struct {
 	Token       string `json:"token"`
-	TeamId      string `json:"team_id"`
+	TeamId      int    `json:"team_id"`
 	TeamDomain  string `json:"team_domain"`
-	ChannelId   string `json:"channel_id"`
+	ChannelId   int    `json:"channel_id"`
 	ChannelName string `json:"channel_name"`
 	Timestamp   int64  `json:"timestamp"`
-	UserId      string `json:"user_id"`
+	UserId      int    `json:"user_id"`
 	UserName    string `json:"user_name"`
-	PostId      string `json:"post_id"`
+	PostId      int    `json:"post_id"`
 	Text        string `json:"text"`
 	TriggerWord string `json:"trigger_word"`
 	FileIds     string `json:"file_ids"`
@@ -195,10 +195,6 @@ func (o *OutgoingWebhook) IsValid() *AppError {
 }
 
 func (o *OutgoingWebhook) PreSave() {
-	if o.Id == "" {
-		o.Id = NewId()
-	}
-
 	if o.Token == "" {
 		o.Token = NewId()
 	}

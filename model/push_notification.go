@@ -28,20 +28,20 @@ const (
 
 type PushNotification struct {
 	Platform         string `json:"platform"`
-	ServerId         string `json:"server_id"`
-	DeviceId         string `json:"device_id"`
+	ServerId         int    `json:"server_id"`
+	DeviceId         int    `json:"device_id"`
 	Category         string `json:"category"`
 	Sound            string `json:"sound"`
 	Message          string `json:"message"`
 	Badge            int    `json:"badge"`
 	ContentAvailable int    `json:"cont_ava"`
-	TeamId           string `json:"team_id"`
-	ChannelId        string `json:"channel_id"`
-	PostId           string `json:"post_id"`
-	RootId           string `json:"root_id"`
+	TeamId           int    `json:"team_id"`
+	ChannelId        int    `json:"channel_id"`
+	PostId           int    `json:"post_id"`
+	RootId           int    `json:"root_id"`
 	ChannelName      string `json:"channel_name"`
 	Type             string `json:"type"`
-	SenderId         string `json:"sender_id"`
+	SenderId         int    `json:"sender_id"`
 	OverrideUsername string `json:"override_username"`
 	OverrideIconUrl  string `json:"override_icon_url"`
 	FromWebhook      string `json:"from_webhook"`

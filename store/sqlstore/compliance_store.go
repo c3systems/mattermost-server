@@ -20,9 +20,9 @@ func NewSqlComplianceStore(sqlStore SqlStore) store.ComplianceStore {
 	s := &SqlComplianceStore{sqlStore}
 
 	for _, db := range sqlStore.GetAllConns() {
-		table := db.AddTableWithName(model.Compliance{}, "Compliances").SetKeys(false, "Id")
-		table.ColMap("Id").SetMaxSize(26)
-		table.ColMap("UserId").SetMaxSize(26)
+		table := db.AddTableWithName(model.Compliance{}, "Compliances").SetKeys(true, "Id")
+		table.ColMap("Id")
+		table.ColMap("UserId")
 		table.ColMap("Status").SetMaxSize(64)
 		table.ColMap("Desc").SetMaxSize(512)
 		table.ColMap("Type").SetMaxSize(64)

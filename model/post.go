@@ -53,17 +53,17 @@ const (
 )
 
 type Post struct {
-	Id         string `json:"id"`
-	CreateAt   int64  `json:"create_at"`
-	UpdateAt   int64  `json:"update_at"`
-	EditAt     int64  `json:"edit_at"`
-	DeleteAt   int64  `json:"delete_at"`
-	IsPinned   bool   `json:"is_pinned"`
-	UserId     string `json:"user_id"`
-	ChannelId  string `json:"channel_id"`
-	RootId     string `json:"root_id"`
-	ParentId   string `json:"parent_id"`
-	OriginalId string `json:"original_id"`
+	Id         int   `json:"id"`
+	CreateAt   int64 `json:"create_at"`
+	UpdateAt   int64 `json:"update_at"`
+	EditAt     int64 `json:"edit_at"`
+	DeleteAt   int64 `json:"delete_at"`
+	IsPinned   bool  `json:"is_pinned"`
+	UserId     int   `json:"user_id"`
+	ChannelId  int   `json:"channel_id"`
+	RootId     int   `json:"root_id"`
+	ParentId   int   `json:"parent_id"`
+	OriginalId int   `json:"original_id"`
 
 	Message string `json:"message"`
 
@@ -77,13 +77,13 @@ type Post struct {
 	Hashtags      string          `json:"hashtags"`
 	Filenames     StringArray     `json:"filenames,omitempty"` // Deprecated, do not use this field any more
 	FileIds       StringArray     `json:"file_ids,omitempty"`
-	PendingPostId string          `json:"pending_post_id" db:"-"`
+	PendingPostId int             `json:"pending_post_id" db:"-"`
 	HasReactions  bool            `json:"has_reactions,omitempty"`
 }
 
 type PostEphemeral struct {
-	UserID string `json:"user_id"`
-	Post   *Post  `json:"post"`
+	UserID int   `json:"user_id"`
+	Post   *Post `json:"post"`
 }
 
 type PostPatch struct {
@@ -254,12 +254,6 @@ func (o *Post) SanitizeProps() {
 }
 
 func (o *Post) PreSave() {
-	if o.Id == "" {
-		o.Id = NewId()
-	}
-
-	o.OriginalId = ""
-
 	if o.CreateAt == 0 {
 		o.CreateAt = GetMillis()
 	}
@@ -423,9 +417,9 @@ func (o *Post) GenerateActionIds() {
 	if attachments, ok := o.Props["attachments"].([]*SlackAttachment); ok {
 		for _, attachment := range attachments {
 			for _, action := range attachment.Actions {
-				if action.Id == "" {
-					action.Id = NewId()
-				}
+				//if action.Id == "" {
+				//action.Id = NewId()
+				//}
 			}
 		}
 	}

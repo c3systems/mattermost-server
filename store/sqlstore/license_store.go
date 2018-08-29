@@ -18,8 +18,8 @@ func NewSqlLicenseStore(sqlStore SqlStore) store.LicenseStore {
 	ls := &SqlLicenseStore{sqlStore}
 
 	for _, db := range sqlStore.GetAllConns() {
-		table := db.AddTableWithName(model.LicenseRecord{}, "Licenses").SetKeys(false, "Id")
-		table.ColMap("Id").SetMaxSize(26)
+		table := db.AddTableWithName(model.LicenseRecord{}, "Licenses").SetKeys(true, "Id")
+		table.ColMap("Id")
 		table.ColMap("Bytes").SetMaxSize(10000)
 	}
 

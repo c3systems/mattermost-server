@@ -16,8 +16,8 @@ const (
 )
 
 type AccessData struct {
-	ClientId     string `json:"client_id"`
-	UserId       string `json:"user_id"`
+	ClientId     int    `json:"client_id"`
+	UserId       int    `json:"user_id"`
 	Token        string `json:"token"`
 	RefreshToken string `json:"refresh_token"`
 	RedirectUri  string `json:"redirect_uri"`
@@ -36,15 +36,6 @@ type AccessResponse struct {
 // IsValid validates the AccessData and returns an error if it isn't configured
 // correctly.
 func (ad *AccessData) IsValid() *AppError {
-
-	if len(ad.ClientId) == 0 || len(ad.ClientId) > 26 {
-		return NewAppError("AccessData.IsValid", "model.access.is_valid.client_id.app_error", nil, "", http.StatusBadRequest)
-	}
-
-	if len(ad.UserId) == 0 || len(ad.UserId) > 26 {
-		return NewAppError("AccessData.IsValid", "model.access.is_valid.user_id.app_error", nil, "", http.StatusBadRequest)
-	}
-
 	if len(ad.Token) != 26 {
 		return NewAppError("AccessData.IsValid", "model.access.is_valid.access_token.app_error", nil, "", http.StatusBadRequest)
 	}

@@ -20,7 +20,6 @@ const (
 
 func (srv *JobServer) CreateJob(jobType string, jobData map[string]string) (*model.Job, *model.AppError) {
 	job := model.Job{
-		Id:       model.NewId(),
 		Type:     jobType,
 		CreateAt: model.GetMillis(),
 		Status:   model.JOB_STATUS_PENDING,

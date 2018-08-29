@@ -16,9 +16,9 @@ import (
 )
 
 type FileInfo struct {
-	Id              string `json:"id"`
-	CreatorId       string `json:"user_id"`
-	PostId          string `json:"post_id,omitempty"`
+	Id              int    `json:"id"`
+	CreatorId       int    `json:"user_id"`
+	PostId          int    `json:"post_id,omitempty"`
 	CreateAt        int64  `json:"create_at"`
 	UpdateAt        int64  `json:"update_at"`
 	DeleteAt        int64  `json:"delete_at"`
@@ -67,10 +67,6 @@ func FileInfosFromJson(data io.Reader) []*FileInfo {
 }
 
 func (o *FileInfo) PreSave() {
-	if o.Id == "" {
-		o.Id = NewId()
-	}
-
 	if o.CreateAt == 0 {
 		o.CreateAt = GetMillis()
 	}

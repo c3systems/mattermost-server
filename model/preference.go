@@ -40,7 +40,7 @@ const (
 )
 
 type Preference struct {
-	UserId   string `json:"user_id"`
+	UserId   int    `json:"user_id"`
 	Category string `json:"category"`
 	Name     string `json:"name"`
 	Value    string `json:"value"`

@@ -18,11 +18,11 @@ func NewSqlCommandStore(sqlStore SqlStore) store.CommandStore {
 	s := &SqlCommandStore{sqlStore}
 
 	for _, db := range sqlStore.GetAllConns() {
-		tableo := db.AddTableWithName(model.Command{}, "Commands").SetKeys(false, "Id")
-		tableo.ColMap("Id").SetMaxSize(26)
+		tableo := db.AddTableWithName(model.Command{}, "Commands").SetKeys(true, "Id")
+		tableo.ColMap("Id")
 		tableo.ColMap("Token").SetMaxSize(26)
-		tableo.ColMap("CreatorId").SetMaxSize(26)
-		tableo.ColMap("TeamId").SetMaxSize(26)
+		tableo.ColMap("CreatorId")
+		tableo.ColMap("TeamId")
 		tableo.ColMap("Trigger").SetMaxSize(128)
 		tableo.ColMap("URL").SetMaxSize(1024)
 		tableo.ColMap("Method").SetMaxSize(1)

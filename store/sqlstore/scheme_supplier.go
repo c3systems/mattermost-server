@@ -18,8 +18,8 @@ import (
 
 func initSqlSupplierSchemes(sqlStore SqlStore) {
 	for _, db := range sqlStore.GetAllConns() {
-		table := db.AddTableWithName(model.Scheme{}, "Schemes").SetKeys(false, "Id")
-		table.ColMap("Id").SetMaxSize(26)
+		table := db.AddTableWithName(model.Scheme{}, "Schemes").SetKeys(true, "Id")
+		table.ColMap("Id")
 		table.ColMap("Name").SetMaxSize(model.SCHEME_NAME_MAX_LENGTH).SetUnique(true)
 		table.ColMap("DisplayName").SetMaxSize(model.SCHEME_DISPLAY_NAME_MAX_LENGTH)
 		table.ColMap("Description").SetMaxSize(model.SCHEME_DESCRIPTION_MAX_LENGTH)
@@ -159,7 +159,6 @@ func (s *SqlSupplier) createScheme(ctx context.Context, scheme *model.Scheme, tr
 		}
 	}
 
-	scheme.Id = model.NewId()
 	if len(scheme.Name) == 0 {
 		scheme.Name = model.NewId()
 	}

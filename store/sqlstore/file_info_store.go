@@ -39,10 +39,10 @@ func NewSqlFileInfoStore(sqlStore SqlStore, metrics einterfaces.MetricsInterface
 	}
 
 	for _, db := range sqlStore.GetAllConns() {
-		table := db.AddTableWithName(model.FileInfo{}, "FileInfo").SetKeys(false, "Id")
-		table.ColMap("Id").SetMaxSize(26)
-		table.ColMap("CreatorId").SetMaxSize(26)
-		table.ColMap("PostId").SetMaxSize(26)
+		table := db.AddTableWithName(model.FileInfo{}, "FileInfo").SetKeys(true, "Id")
+		table.ColMap("Id")
+		table.ColMap("CreatorId")
+		table.ColMap("PostId")
 		table.ColMap("Path").SetMaxSize(512)
 		table.ColMap("ThumbnailPath").SetMaxSize(512)
 		table.ColMap("PreviewPath").SetMaxSize(512)

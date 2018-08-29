@@ -18,8 +18,8 @@ func NewSqlAuditStore(sqlStore SqlStore) store.AuditStore {
 	s := &SqlAuditStore{sqlStore}
 
 	for _, db := range sqlStore.GetAllConns() {
-		table := db.AddTableWithName(model.Audit{}, "Audits").SetKeys(false, "Id")
-		table.ColMap("Id").SetMaxSize(26)
+		table := db.AddTableWithName(model.Audit{}, "Audits").SetKeys(true, "Id")
+		table.ColMap("Id")
 		table.ColMap("UserId").SetMaxSize(26)
 		table.ColMap("Action").SetMaxSize(512)
 		table.ColMap("ExtraInfo").SetMaxSize(1024)
@@ -36,7 +36,6 @@ func (s SqlAuditStore) CreateIndexesIfNotExists() {
 
 func (s SqlAuditStore) Save(audit *model.Audit) store.StoreChannel {
 	return store.Do(func(result *store.StoreResult) {
-		audit.Id = model.NewId()
 		audit.CreateAt = model.GetMillis()
 
 		if err := s.GetMaster().Insert(audit); err != nil {

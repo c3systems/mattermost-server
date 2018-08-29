@@ -4,8 +4,8 @@
 package model
 
 type ChannelMemberHistory struct {
-	ChannelId string
-	UserId    string
+	ChannelId int
+	UserId    int
 	JoinTime  int64
 	LeaveTime *int64
 }

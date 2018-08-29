@@ -20,7 +20,7 @@ const (
 // PluginStatus provides a cluster-aware view of installed plugins.
 type PluginStatus struct {
 	PluginId    string `json:"plugin_id"`
-	ClusterId   string `json:"cluster_id"`
+	ClusterId   int    `json:"cluster_id"`
 	PluginPath  string `json:"plugin_path"`
 	State       int    `json:"state"`
 	Name        string `json:"name"`

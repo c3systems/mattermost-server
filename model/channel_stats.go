@@ -9,8 +9,8 @@ import (
 )
 
 type ChannelStats struct {
-	ChannelId   string `json:"channel_id"`
-	MemberCount int64  `json:"member_count"`
+	ChannelId   int   `json:"channel_id"`
+	MemberCount int64 `json:"member_count"`
 }
 
 func (o *ChannelStats) ToJson() string {

@@ -25,13 +25,13 @@ type CompliancePost struct {
 	UserNickname string
 
 	// From Post
-	PostId         string
+	PostId         int
 	PostCreateAt   int64
 	PostUpdateAt   int64
 	PostDeleteAt   int64
-	PostRootId     string
-	PostParentId   string
-	PostOriginalId string
+	PostRootId     int
+	PostParentId   int
+	PostOriginalId int
 	PostMessage    string
 	PostType       string
 	PostProps      string

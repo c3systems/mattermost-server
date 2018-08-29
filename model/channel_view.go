@@ -9,8 +9,8 @@ import (
 )
 
 type ChannelView struct {
-	ChannelId     string `json:"channel_id"`
-	PrevChannelId string `json:"prev_channel_id"`
+	ChannelId     int `json:"channel_id"`
+	PrevChannelId int `json:"prev_channel_id"`
 }
 
 func (o *ChannelView) ToJson() string {

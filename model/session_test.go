@@ -1,3 +1,5 @@
+// +build test
+
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See License.txt for license information.
 
@@ -76,5 +78,3 @@ func TestSessionCSRF(t *testing.T) {
 	assert.NotEmpty(t, token2)
 	assert.Equal(t, token, token2)
 }
-
-

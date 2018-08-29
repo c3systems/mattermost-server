@@ -174,13 +174,14 @@ func (a *App) RemoveLicense() *model.AppError {
 	return nil
 }
 
-func (a *App) AddLicenseListener(listener func()) string {
-	id := model.NewId()
+func (a *App) AddLicenseListener(listener func()) int {
+	// note: fix this!
+	id := 0
 	a.licenseListeners[id] = listener
 	return id
 }
 
-func (a *App) RemoveLicenseListener(id string) {
+func (a *App) RemoveLicenseListener(id int) {
 	delete(a.licenseListeners, id)
 }
 

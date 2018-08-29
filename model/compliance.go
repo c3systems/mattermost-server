@@ -22,9 +22,9 @@ const (
 )
 
 type Compliance struct {
-	Id       string `json:"id"`
+	Id       int    `json:"id"`
 	CreateAt int64  `json:"create_at"`
-	UserId   string `json:"user_id"`
+	UserId   int    `json:"user_id"`
 	Status   string `json:"status"`
 	Count    int    `json:"count"`
 	Desc     string `json:"desc"`
@@ -43,10 +43,6 @@ func (o *Compliance) ToJson() string {
 }
 
 func (me *Compliance) PreSave() {
-	if me.Id == "" {
-		me.Id = NewId()
-	}
-
 	if me.Status == "" {
 		me.Status = COMPLIANCE_STATUS_CREATED
 	}

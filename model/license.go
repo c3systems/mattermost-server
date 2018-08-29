@@ -15,13 +15,13 @@ const (
 )
 
 type LicenseRecord struct {
-	Id       string `json:"id"`
+	Id       int    `json:"id"`
 	CreateAt int64  `json:"create_at"`
 	Bytes    string `json:"-"`
 }
 
 type License struct {
-	Id        string    `json:"id"`
+	Id        int       `json:"id"`
 	IssuedAt  int64     `json:"issued_at"`
 	StartsAt  int64     `json:"starts_at"`
 	ExpiresAt int64     `json:"expires_at"`
@@ -30,7 +30,7 @@ type License struct {
 }
 
 type Customer struct {
-	Id          string `json:"id"`
+	Id          int    `json:"id"`
 	Name        string `json:"name"`
 	Email       string `json:"email"`
 	Company     string `json:"company"`

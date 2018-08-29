@@ -11,8 +11,8 @@ import (
 )
 
 type TeamMember struct {
-	TeamId        string `json:"team_id"`
-	UserId        string `json:"user_id"`
+	TeamId        int    `json:"team_id"`
+	UserId        int    `json:"user_id"`
 	Roles         string `json:"roles"`
 	DeleteAt      int64  `json:"delete_at"`
 	SchemeUser    bool   `json:"scheme_user"`
@@ -21,9 +21,9 @@ type TeamMember struct {
 }
 
 type TeamUnread struct {
-	TeamId       string `json:"team_id"`
-	MsgCount     int64  `json:"msg_count"`
-	MentionCount int64  `json:"mention_count"`
+	TeamId       int   `json:"team_id"`
+	MsgCount     int64 `json:"msg_count"`
+	MentionCount int64 `json:"mention_count"`
 }
 
 func (o *TeamMember) ToJson() string {

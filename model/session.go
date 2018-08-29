@@ -24,13 +24,13 @@ const (
 )
 
 type Session struct {
-	Id             string        `json:"id"`
+	Id             int           `json:"id"`
 	Token          string        `json:"token"`
 	CreateAt       int64         `json:"create_at"`
 	ExpiresAt      int64         `json:"expires_at"`
 	LastActivityAt int64         `json:"last_activity_at"`
-	UserId         string        `json:"user_id"`
-	DeviceId       string        `json:"device_id"`
+	UserId         int           `json:"user_id"`
+	DeviceId       int           `json:"device_id"`
 	Roles          string        `json:"roles"`
 	IsOAuth        bool          `json:"is_oauth"`
 	Props          StringMap     `json:"props"`
@@ -67,10 +67,6 @@ func SessionFromJson(data io.Reader) *Session {
 }
 
 func (me *Session) PreSave() {
-	if me.Id == "" {
-		me.Id = NewId()
-	}
-
 	if me.Token == "" {
 		me.Token = NewId()
 	}
